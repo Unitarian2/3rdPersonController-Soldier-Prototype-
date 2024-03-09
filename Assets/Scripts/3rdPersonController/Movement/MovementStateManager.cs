@@ -18,7 +18,10 @@ public class MovementStateManager : MonoBehaviour
     //Input
     [HideInInspector] public Vector3 direction;
     float inputX, inputZ;
+
+    //References
     CharacterController characterController;
+    [HideInInspector] public Animator animator;
 
     
 
@@ -26,6 +29,7 @@ public class MovementStateManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
     }
 
@@ -34,6 +38,9 @@ public class MovementStateManager : MonoBehaviour
     {
         GetDirectionAndMove();
         HandleGravity();
+
+        animator.SetFloat("hzInput", inputX, 0.1f, Time.deltaTime);
+        animator.SetFloat("vInput", inputZ, 0.1f, Time.deltaTime);
     }
 
 
@@ -49,7 +56,7 @@ public class MovementStateManager : MonoBehaviour
         direction = xDirection + zDirection;
 
         //Karakteri hareket ettiriyoruz. 
-        characterController.Move(direction * moveSpeed * Time.deltaTime);
+        characterController.Move(direction.normalized * moveSpeed * Time.deltaTime);
     }
 
     bool IsGrounded()
