@@ -437,13 +437,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 653d647edb3d5884e86101e2e3e0b56c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
+  currentMoveSpeed: 3
+  walkSpeed: 3
+  walkBackSpeed: 2
+  runSpeed: 6
+  runBackSpeed: 4
+  crouchSpeed: 2
+  crouchBackSpeed: 1
   groundYOffset: 0.6
   groundMask:
     serializedVersion: 2
     m_Bits: 64
   gravity: -9.81
   direction: {x: 0, y: 0, z: 0}
+  inputX: 0
+  inputZ: 0
   animator: {fileID: 0}
 --- !u!114 &776780706
 MonoBehaviour:

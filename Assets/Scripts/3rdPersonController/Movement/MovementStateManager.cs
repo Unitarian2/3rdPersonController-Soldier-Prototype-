@@ -6,7 +6,10 @@ using UnityEngine.Rendering.Universal;
 public class MovementStateManager : MonoBehaviour
 {
     [Header("-Movement Settings-")]
-    public float moveSpeed = 3f;
+    public float currentMoveSpeed = 3f;
+    public float walkSpeed = 3, walkBackSpeed = 2;
+    public float runSpeed = 7, runBackSpeed = 5;
+    public float crouchSpeed = 2, crouchBackSpeed = 1;
 
     [Header("-Gravity Settings-")]
     [SerializeField] private float groundYOffset;
@@ -17,13 +20,18 @@ public class MovementStateManager : MonoBehaviour
 
     //Input
     [HideInInspector] public Vector3 direction;
-    float inputX, inputZ;
+    [HideInInspector] public float inputX, inputZ;
 
     //References
     CharacterController characterController;
     [HideInInspector] public Animator animator;
 
-    
+    //States
+    MovementBaseState currentState;
+    public IdleState Idle = new();
+    public WalkState Walk = new();
+    public CrouchState Crouch = new();
+    public RunState Run = new();
 
 
     // Start is called before the first frame update
@@ -31,6 +39,7 @@ public class MovementStateManager : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         characterController = GetComponent<CharacterController>();
+        SwitchState(Idle);
     }
 
     // Update is called once per frame
@@ -39,11 +48,19 @@ public class MovementStateManager : MonoBehaviour
         GetDirectionAndMove();
         HandleGravity();
 
+        currentState.UpdateState(this);
+
         animator.SetFloat("hzInput", inputX, 0.1f, Time.deltaTime);
         animator.SetFloat("vInput", inputZ, 0.1f, Time.deltaTime);
+        
     }
 
 
+    public void SwitchState(MovementBaseState newState)
+    {
+        currentState = newState;
+        currentState.EnterState(this);
+    }
     void GetDirectionAndMove()
     {
         //Old input system'dan hareket deðerlerini alýyoruz. Player X ve Z'de hareket edecek.
@@ -56,7 +73,7 @@ public class MovementStateManager : MonoBehaviour
         direction = xDirection + zDirection;
 
         //Karakteri hareket ettiriyoruz. 
-        characterController.Move(direction.normalized * moveSpeed * Time.deltaTime);
+        characterController.Move(direction.normalized * currentMoveSpeed * Time.deltaTime);
     }
 
     bool IsGrounded()

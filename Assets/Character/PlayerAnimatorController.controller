@@ -357,7 +357,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: isWalking
     m_Type: 4
@@ -472,9 +472,9 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
+  - {fileID: -8606910852254607580}
   - {fileID: -9031912551731171901}
   - {fileID: 7161692262222299335}
-  - {fileID: -8606910852254607580}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
@@ -622,9 +622,9 @@ AnimatorState:
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
-  - {fileID: 7104135888610720324}
-  - {fileID: -26736046012332103}
   - {fileID: 504263380391526791}
+  - {fileID: -26736046012332103}
+  - {fileID: 7104135888610720324}
   m_StateMachineBehaviours: []
   m_Position: {x: 50, y: 50, z: 0}
   m_IKOnFeet: 0
