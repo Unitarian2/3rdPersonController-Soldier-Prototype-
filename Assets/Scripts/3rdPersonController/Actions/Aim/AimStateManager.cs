@@ -24,7 +24,8 @@ public class AimStateManager : MonoBehaviour
     public float fovTransitionSpeed = 10;
 
     [Header(">AIMING SETTINGS<")]
-    [SerializeField] Transform aimPos;
+    public Transform aimPos;
+    [HideInInspector] public Vector3 actualAimPos;
     [SerializeField] float aimTransitionSpeed = 20;
     [SerializeField] LayerMask aimMask;
 
@@ -50,6 +51,7 @@ public class AimStateManager : MonoBehaviour
         if(Physics.Raycast(ray,out RaycastHit hit, Mathf.Infinity, aimMask))
         {
             aimPos.position = Vector3.Lerp(aimPos.position,hit.point,aimTransitionSpeed * Time.deltaTime);
+            actualAimPos = hit.point;
         }
 
         currentState.UpdateState(this);
