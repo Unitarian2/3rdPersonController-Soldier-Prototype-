@@ -29,7 +29,10 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float aimTransitionSpeed = 20;
     [SerializeField] LayerMask aimMask;
 
-    // Start is called before the first frame update
+    //Properties
+    public AimBaseState CurrentState { get { return currentState; } }
+
+
     void Start()
     {
         hipFov = virtualCamera.m_Lens.FieldOfView;

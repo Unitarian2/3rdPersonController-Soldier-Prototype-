@@ -33,6 +33,9 @@ public class MovementStateManager : MonoBehaviour
     public CrouchState Crouch = new();
     public RunState Run = new();
 
+    //Properties
+    public MovementBaseState CurrentState { get { return currentState; } }
+
 
     // Start is called before the first frame update
     void Start()
