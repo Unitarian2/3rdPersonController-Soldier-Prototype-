@@ -2285,7 +2285,7 @@ MonoBehaviour:
   bulletVelocity: 500
   bulletsPerShot: 1
   aimManager: {fileID: 776780706}
-  gunShotSound: {fileID: 8300000, guid: beb894accab2dd048bf509fd7afc1e7a, type: 3}
+  gunShotSound: {fileID: 8300000, guid: f7a99641aaa885543bfd6e0124605c89, type: 3}
 --- !u!82 &5293976289591950699
 AudioSource:
   m_ObjectHideFlags: 0
