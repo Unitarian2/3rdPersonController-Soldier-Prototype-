@@ -5,25 +5,21 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float timeToDestroy;
-    float timer;
+    public float bulletDamage;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        Destroy(this.gameObject, timeToDestroy);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        timer += Time.deltaTime;
-        if (timer > timeToDestroy)
-        {
-            Destroy(this.gameObject);
-        }
-    }
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.TryGetComponent<EnemyHealth>(out EnemyHealth enemyHealth))
+        {
+            enemyHealth.TakeDamage(bulletDamage);
+        }
         Destroy(this.gameObject);
     }
 }
