@@ -20,11 +20,16 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] AudioClip gunShotSound;
     AudioSource audioSource;
 
+    //References
+    WeaponAmmo ammo;
+    [SerializeField] ActionStateManager actionManager;
+
     // Start is called before the first frame update
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
-        fireRateTimer = fireRate;
+        ammo = GetComponent<WeaponAmmo>();
+        fireRateTimer = fireRate;  
     }
 
     // Update is called once per frame
@@ -37,8 +42,10 @@ public class WeaponManager : MonoBehaviour
     {
         fireRateTimer += Time.deltaTime;
         if (fireRateTimer < fireRate) return false;
-        if(semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;//Semi Automatic
-        if(!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;//Fully Automatic
+        if (ammo.currentAmmo == 0) return false;//Þarjör boþ.
+        if (actionManager.currentState == actionManager.Reload) return false;//Reload'dayýz.
+        if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;//Semi Automatic
+        if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;//Fully Automatic
         return false;
     }
 
@@ -47,6 +54,7 @@ public class WeaponManager : MonoBehaviour
         fireRateTimer = 0;
         barrelPos.LookAt(aimManager.aimPos);
         audioSource.PlayOneShot(gunShotSound);
+        ammo.currentAmmo--;
         for (int i = 0; i < bulletsPerShot; i++)
         {
             GameObject currentBullet = Instantiate(bullet,barrelPos.position,barrelPos.rotation);

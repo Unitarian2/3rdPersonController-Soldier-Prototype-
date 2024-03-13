@@ -570,6 +570,37 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 835655022}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &528317447
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 528317448}
+  m_Layer: 7
+  m_Name: RecoilFollowPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &528317448
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 528317447}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1753839791}
+  m_RootOrder: -1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &579619549 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 60d78133d6c67cb4a9fc655386f7c0b3,
@@ -833,6 +864,23 @@ MonoBehaviour:
   - m_Rig: {fileID: 633899276}
     m_Active: 1
   m_Effectors: []
+--- !u!114 &776780711
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579619549}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e61c13c130ca354dae638acca2d8a4f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentWeapon: {fileID: 5293976289591950697}
+  ammo: {fileID: 0}
+  animator: {fileID: 0}
+  rHandAim: {fileID: 1098967101}
+  lHandIK: {fileID: 1407395745}
 --- !u!1 &813611387
 GameObject:
   m_ObjectHideFlags: 3
@@ -1318,6 +1366,16 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 06cf7020ab0e08f4893bfba65f19fa31, type: 2}
+    - target: {fileID: 5866666021909216657, guid: 60d78133d6c67cb4a9fc655386f7c0b3,
+        type: 3}
+      propertyPath: m_WarningMessage
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'mixamorig:Head'\n\tTransform 'mixamorig:LeftArm'\n\tTransform
+        'mixamorig:RightHand'\n\tTransform 'mixamorig:Hips'\n\tTransform 'mixamorig:LeftForeArm'\n\tTransform
+        'mixamorig:RightForeArm'\n\tTransform 'mixamorig:Neck'\n\tTransform 'mixamorig:Spine'\n\tTransform
+        'mixamorig:LeftHand'\n\tTransform 'mixamorig:Head'\n\tand more ..."
+      objectReference: {fileID: 0}
     - target: {fileID: 6240733294840144465, guid: 60d78133d6c67cb4a9fc655386f7c0b3,
         type: 3}
       propertyPath: m_Layer
@@ -1399,6 +1457,10 @@ PrefabInstance:
         type: 3}
       insertIndex: -1
       addedObject: {fileID: 776780705}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60d78133d6c67cb4a9fc655386f7c0b3,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 776780711}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 60d78133d6c67cb4a9fc655386f7c0b3,
         type: 3}
       insertIndex: -1
@@ -1704,8 +1766,8 @@ MonoBehaviour:
   m_StreamingVersion: 20170927
   m_Priority: 10
   m_StandbyUpdate: 2
-  m_LookAt: {fileID: 1753839791}
-  m_Follow: {fileID: 1753839791}
+  m_LookAt: {fileID: 528317448}
+  m_Follow: {fileID: 528317448}
   m_Lens:
     FieldOfView: 60.000004
     OrthographicSize: 5
@@ -1988,7 +2050,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.02, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 528317448}
   m_Father: {fileID: 776780703}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2257,6 +2320,8 @@ GameObject:
   - component: {fileID: 5293976289591451977}
   - component: {fileID: 5293976289588552041}
   - component: {fileID: 5293976289589683113}
+  - component: {fileID: 5293976289591950701}
+  - component: {fileID: 5293976289591950700}
   - component: {fileID: 5293976289591950698}
   - component: {fileID: 5293976289591950699}
   m_Layer: 7
@@ -2286,6 +2351,7 @@ MonoBehaviour:
   bulletsPerShot: 1
   aimManager: {fileID: 776780706}
   gunShotSound: {fileID: 8300000, guid: f7a99641aaa885543bfd6e0124605c89, type: 3}
+  actionManager: {fileID: 776780711}
 --- !u!82 &5293976289591950699
 AudioSource:
   m_ObjectHideFlags: 0
@@ -2382,3 +2448,37 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5293976289591950700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293976289591950697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 629efaf3bc4492d459e67fdb29c17d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  clipSize: 30
+  extraAmmo: 120
+  currentAmmo: 0
+  magInSound: {fileID: 8300000, guid: dbc755e072d02bd41a520d26ded701d0, type: 3}
+  magOutSound: {fileID: 8300000, guid: 4442512457e037542982b7c4c89d827b, type: 3}
+  releaseSlideSound: {fileID: 8300000, guid: 3555abd15913bf446a419fcbfaf6da48, type: 3}
+--- !u!114 &5293976289591950701
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293976289591950697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeea6873586742b439730861feada551, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  recoilFollowPos: {fileID: 528317448}
+  kickBackAmount: -1
+  kickBackSpeed: 10
+  returnSpeed: 20
