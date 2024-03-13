@@ -16,6 +16,12 @@ public class RunState : MovementBaseState
 
         if (movementManager.inputZ < 0) movementManager.currentMoveSpeed = movementManager.runBackSpeed;
         else movementManager.currentMoveSpeed = movementManager.runSpeed;
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            movementManager.PreviousState = this;
+            ExitState(movementManager, movementManager.Jump);
+        }
     }
     public override void ExitState(MovementStateManager movementManager, MovementBaseState newState)
     {

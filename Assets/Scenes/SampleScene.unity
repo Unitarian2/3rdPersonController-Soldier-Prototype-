@@ -860,11 +860,14 @@ MonoBehaviour:
   runBackSpeed: 4
   crouchSpeed: 2
   crouchBackSpeed: 1
-  groundYOffset: 0.6
+  airSpeed: 1.5
+  groundYOffset: -0.19
   groundMask:
     serializedVersion: 2
     m_Bits: 65
   gravity: -9.81
+  jumpForce: 7.5
+  jumped: 0
   direction: {x: 0, y: 0, z: 0}
   inputX: 0
   inputZ: 0

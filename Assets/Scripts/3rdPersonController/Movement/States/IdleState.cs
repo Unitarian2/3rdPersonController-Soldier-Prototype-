@@ -24,6 +24,12 @@ public class IdleState : MovementBaseState
         }
 
         if(Input.GetKeyDown(KeyCode.C)) movementManager.SwitchState(movementManager.Crouch);
+
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            movementManager.PreviousState = this;
+            movementManager.SwitchState(movementManager.Jump);
+        }
     }
     public override void ExitState(MovementStateManager movementManager, MovementBaseState newState)
     {
