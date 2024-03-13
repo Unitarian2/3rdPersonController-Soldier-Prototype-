@@ -29,12 +29,30 @@ public class AimStateManager : MonoBehaviour
     [SerializeField] float aimTransitionSpeed = 20;
     [SerializeField] LayerMask aimMask;
 
+    //Camera Transition for ShoulderSwap, Crouch etc.
+    float yFollowPos, originalYPos;
+    private bool isCameraOnSideRightShoulder = true;
+    [SerializeField] float crouchCamHeight;
+    [SerializeField] float cameraTransitionSpeed;
+    Cinemachine3rdPersonFollow cinemachineFramingTransposer;
+
+    //References
+    MovementStateManager movementStateManager;
+
+
     //Properties
     public AimBaseState CurrentState { get { return currentState; } }
 
 
     void Start()
     {
+        movementStateManager = GetComponent<MovementStateManager>();
+
+        cinemachineFramingTransposer = virtualCamera.GetCinemachineComponent<Cinemachine3rdPersonFollow>();
+        cinemachineFramingTransposer.CameraSide = 1f;//Baþlangýçta kamerayý sað omuzdan baþlatýyoruz.
+        originalYPos = camFollowPos.localPosition.y;
+        yFollowPos = originalYPos;
+
         hipFov = virtualCamera.m_Lens.FieldOfView;
         animator = GetComponent<Animator>();
         SwitchState(Hip);
@@ -57,6 +75,8 @@ public class AimStateManager : MonoBehaviour
             actualAimPos = hit.point;
         }
 
+        CameraTransition();
+
         currentState.UpdateState(this);
     }
 
@@ -73,6 +93,26 @@ public class AimStateManager : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    void CameraTransition()
+    {
+        float targetSide = isCameraOnSideRightShoulder ? 1f : 0f;
+        if (Input.GetKeyDown(KeyCode.LeftAlt)) 
+        {
+            targetSide = isCameraOnSideRightShoulder ? 0f : 1f;//Shoulder Swap
+            isCameraOnSideRightShoulder = !isCameraOnSideRightShoulder;
+        } 
+
+        //Shoulder Transition
+        cinemachineFramingTransposer.CameraSide = Mathf.Lerp(cinemachineFramingTransposer.CameraSide, targetSide, cameraTransitionSpeed * Time.deltaTime);
+
+        if (movementStateManager.CurrentState == movementStateManager.Crouch) yFollowPos = crouchCamHeight;//Eðiliyorsak CamFollowPos bir miktar aþaðý indiriyoruz.
+        else yFollowPos = originalYPos;//Y Axis'te default konuma dönüyoruz.
+
+        Vector3 newFollowPos = new Vector3(camFollowPos.localPosition.x, yFollowPos,camFollowPos.localPosition.z);
+        //CamFollowPos Transition
+        camFollowPos.localPosition = Vector3.Lerp(camFollowPos.localPosition, newFollowPos, cameraTransitionSpeed * Time.deltaTime);
     }
     
 }
