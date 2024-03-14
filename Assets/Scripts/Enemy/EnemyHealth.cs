@@ -4,12 +4,17 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    float health;
+    public float health;
     [SerializeField] private float maxHealth;
+    RagdollManager ragdollManager;
+
+    [HideInInspector] public bool isDead;
+
 
     private void Start()
     {
         health = maxHealth;
+        ragdollManager = GetComponent<RagdollManager>();
     }
 
     public void TakeDamage(float damage)
@@ -30,5 +35,7 @@ public class EnemyHealth : MonoBehaviour
     void EnemyDeath()
     {
         Debug.Log("Enemy Died");
+        ragdollManager.TriggerRagdoll();
+
     }
 }
