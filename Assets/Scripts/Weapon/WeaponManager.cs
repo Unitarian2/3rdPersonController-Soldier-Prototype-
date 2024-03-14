@@ -14,39 +14,59 @@ public class WeaponManager : MonoBehaviour
     [SerializeField] Transform barrelPos;
     [SerializeField] float bulletVelocity;
     [SerializeField] int bulletsPerShot;
-    [SerializeField] AimStateManager aimManager;
+    
     public float weaponBulletDamage = 20f;
     public float weaponBulletKickBackForce = 100f;
 
     [Header("Sound Settings")]
     [SerializeField] AudioClip gunShotSound;
-    AudioSource audioSource;
+    [HideInInspector] public AudioSource audioSource;
 
     [Header("Muzzle Light Settings")]
     [SerializeField] float lightReturnSpeed;
 
     //References
-    WeaponAmmo ammo;
-    [SerializeField] ActionStateManager actionManager;
+    [HideInInspector] public WeaponAmmo ammo;
+    AimStateManager aimManager;
+    ActionStateManager actionManager;
     WeaponRecoil recoil;
     Light muzzleFlashLight;
     ParticleSystem muzzleFlashParticles;
     WeaponBloom bloom;
+    WeaponClassManager weaponClassManager;
     float lightIntensity;
+
+    [Header("Weapon Switching Settings")]
+    public Transform leftHandTarget, leftHandHint;
 
 
     // Start is called before the first frame update
     void Start()
     {
-        recoil = GetComponent<WeaponRecoil>();
-        audioSource = GetComponent<AudioSource>();
-        ammo = GetComponent<WeaponAmmo>();
+        aimManager = GetComponentInParent<AimStateManager>();
+        actionManager = GetComponentInParent<ActionStateManager>();
+
         bloom = GetComponent<WeaponBloom>();
         muzzleFlashLight = GetComponentInChildren<Light>();
         lightIntensity = muzzleFlashLight.intensity;
         muzzleFlashLight.intensity = 0;
         muzzleFlashParticles = GetComponentInChildren<ParticleSystem>();
         fireRateTimer = fireRate;  
+    }
+
+    private void OnEnable()
+    {
+        if(weaponClassManager == null)
+        {
+            weaponClassManager = GetComponentInParent<WeaponClassManager>();
+            ammo = GetComponent<WeaponAmmo>();
+            audioSource = GetComponent<AudioSource>();
+            recoil = GetComponent<WeaponRecoil>();
+            recoil.recoilFollowPos = weaponClassManager.recoilFollowPos;
+        }
+
+        weaponClassManager.SetCurrentWeapon(this);
+        
     }
 
     // Update is called once per frame
@@ -62,6 +82,7 @@ public class WeaponManager : MonoBehaviour
         if (fireRateTimer < fireRate) return false;
         if (ammo.currentAmmo == 0) return false;//Þarjör boþ.
         if (actionManager.currentState == actionManager.Reload) return false;//Reload'dayýz.
+        if (actionManager.currentState == actionManager.WeaponSwap) return false;//Silah swaplýyoruz.
         if (semiAuto && Input.GetKeyDown(KeyCode.Mouse0)) return true;//Semi Automatic
         if (!semiAuto && Input.GetKey(KeyCode.Mouse0)) return true;//Fully Automatic
         return false;

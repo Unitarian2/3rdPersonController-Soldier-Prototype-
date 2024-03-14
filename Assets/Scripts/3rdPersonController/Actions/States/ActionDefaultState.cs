@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class ActionDefaultState : ActionBaseState
 {
+    public float scrollDirection;
     public override void EnterState(ActionStateManager actionManager)
     {
     }
@@ -17,6 +18,11 @@ public class ActionDefaultState : ActionBaseState
         if (Input.GetKeyDown(KeyCode.R) && CanReload(actionManager))
         {
             actionManager.SwitchState(actionManager.Reload);
+        }
+        else if(Input.mouseScrollDelta.y != 0)
+        {
+            scrollDirection = Input.mouseScrollDelta.y;
+            actionManager.SwitchState(actionManager.WeaponSwap);
         }
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    public float health;
+    [HideInInspector] public float health;
     [SerializeField] private float maxHealth;
     RagdollManager ragdollManager;
 
