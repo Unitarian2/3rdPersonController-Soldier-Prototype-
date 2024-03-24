@@ -13,6 +13,13 @@ Update metodu içinde en tüm movement metodlarını çalıştırdıktan sonra e
   HandleGravity() => Yerçekimi hareketini veriyoruz. Karakter zaten yerdeyse gravity biraz azalttık ama 0 yapmıyoruz çünkü "floating" duruma düşmek istemiyoruz.
   IsFalling() => Bu sadece karakter düşüş durumundaysa animator güncellemek için kullandığımız bir metod.
 - CrouchState.cs => CrouchState'deyken, Left Shift yani koşma tuşuna basarsak Crouch iptal edip RunState geçiyoruz. Eğilme tuşuna(C) tekrar basarsak karakterin hareket miktarına göre Idle veya Walk state'e geçiyoruz. movementManager.inputZ kontrol ederek de ileri geri eğilme hızını güncelliyoruz.(Geriye daha yavaş hareket eder.)
-- IdleState.cs => Karakterin direction.magnitude değerine göre Walk veya Run State'e geçiyoruz. Eğilme tuşuna basıldıysa(C) Crouch State geçiyoruz. Zıplama tuşuna(Space) basıldıysa
+- IdleState.cs => Karakterin direction.magnitude değerine göre Walk veya Run State'e geçiyoruz. Eğilme tuşuna basıldıysa(C) Crouch State geçiyoruz. Zıplama tuşuna(Space) basıldıysa Jump State geçiyoruz.
+- JumpState.cs => Jump State'e hangi state'den geçtiğimiz önemlidir. Buna göre iki farklı Jump animation çalıştırıyoruz. Jump bittiğinde hareket durumu ve basılan tuşlara göre Run, Walk veya Idle State'e geçiş yapıyoruz.
+- RunState.cs => LeftShift tuşuna basmayı bırakırsak(GetKeyUp) Walk State geçiyoruz. Karakter hareketi durduysa Idle State geçiyoruz. inputZ'ye göre ileri ve geri koşma hızı ayarlanıyor. Zıplama tuşuna(Space) basıldığındaysa Jump State geçiyoruz.
+- WalkState.cs => LeftShift basıldıysa Run State geçiyoruz. C tuşuna basıldıysa Crouch state geçiyoruz. Hareket durduysa Idle State geçiyoruz. inputZ'ye göre ileri ve geri yürüme hızı ayarlanıyor. Zıplama tuşuna(Space) basıldığındaysa Jump State geçiyoruz.
+
+---AIM SINIFLARI---
+Aim işlemi için old input systemdan gelen harekete göre karakteri döndürüyoruz. Virtual Camera Player object'in bir child object'ine(RecoilFollowPos) follow ve look yaparak takip etmekte.
+- 
 
 
