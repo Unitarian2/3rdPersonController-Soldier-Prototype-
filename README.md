@@ -6,6 +6,8 @@ Yapılabilecek geliştirmeler => New input system geçilebilir. Bunun benzer bir
 
 Movement animations için Blend Tree kullanılmıştır. Weapon animations için Animation Layers ve Mask kullanılmıştır.<br><br>
 
+<b>Demonstrasyon</b> => https://youtu.be/HoUuz1r3Cl8 
+
 ---<b>MOVEMENT SINIFLARI</b>---<br>
 Update metodu içinde en tüm movement metodlarını çalıştırdıktan sonra en son Animator.SetFloat ile BlendTree'ye veri beslemesi yapıyoruz. Bu sayede movement animation'lar değişiyor.<br>
 - <b>MovementStateManager.cs</b> => Tüm temel hareket logic'i buradadır. Hareket datası da buradadır. İlerde data kısımlarını Scriptable Object'e taşıyarak designer friendly hale getirebiliriz. Character Controller üzerinden hareketi sağlıyoruz.<br>
