@@ -1,7 +1,7 @@
 # 3rdPersonController-Soldier-Prototype-
 3rd Person kontrollerine sahip bir shooter karakteri için geliştirilmiş olan prototipi içeren repo'dur.<br>
 Çok fazla if condition olacağından, basit bir State Machine kullanılmıştır. <br>
-Bu prototipte Player => Yürüme, Koşma, Eğilme, Zıplama, Nişan alma, Silah değiştirme, Silah Reload etme gibi özelliklere sahiptir. Basit bir recoil sistemi, ses yapısı eklenmiştir. Basit bir düşman ve düşman hasar alma/ölme(Ragdoll ile) mekaniği mevcuttur.<br><br>
+Bu prototipte Player => Yürüme, Koşma, Eğilme, Zıplama, Nişan alma, Silah değiştirme, Silah Reload etme gibi özelliklere sahiptir. Basit bir recoil sistemi, ses yapısı eklenmiştir. Basit bir düşman ve düşman hasar alma/ölme(Ragdoll ile) mekaniği mevcuttur. Unity'nin animation rigging'ini kullandığımız için prosedürel olarak karakter rig'inin belli bölgeleri hareket etmekte.<br><br>
 Yapılabilecek geliştirmeler => New input system geçilebilir. Bunun benzer bir örneğini görmek için : https://github.com/Unitarian2/MediatorPatternExample-FruitTreeGrowing-Prototype-with-Generic-Type-Finite-State-Machine<br><br>
 
 Movement animations için Blend Tree kullanılmıştır. Weapon animations için Animation Layers ve Mask kullanılmıştır.<br><br>
@@ -20,6 +20,9 @@ Update metodu içinde en tüm movement metodlarını çalıştırdıktan sonra e
 
 ---AIM SINIFLARI---
 Aim işlemi için old input systemdan gelen harekete göre karakteri döndürüyoruz. Virtual Camera Player object'in bir child object'ine(RecoilFollowPos) follow ve look yaparak takip etmekte.
-- 
+
+- AimStateManager.cs => Ateş ettiğinde mermiyi göndereceğimiz yeri tespit için aim position hesaplaması yapılır(actualAimPos). LeftAlt tuşu ile kamerayı sağ omuz veya sol omuz şeklinde konumlandırabiliyoruz(CameraTransition). LateUpdate'de karakter ve kamera aim hareketleri gerçekleşiyor.
+- HipfireState.cs => Aimin'deki Idle state olarak düşünülebilir. Sağ mouse tuşuna basılınca Aim State'e geçiyor.
+- AimState.cs => Nişan alma state'i. Fov azalır. Sağ mouse tuşuna bırakılınca Hipfire State'e geçiyor.
 
 
