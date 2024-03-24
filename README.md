@@ -10,5 +10,6 @@ Movement animations için Blend Tree kullanılmıştır. Weapon animations için
   GetDirectionAndMove(); =>
   HandleGravity();
   IsFalling();
+- sad
 
 
