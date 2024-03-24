@@ -39,7 +39,7 @@ Aim işlemi için old input systemdan gelen harekete göre karakteri döndürüy
 <b>WeaponManager.cs</b> => Eldeki silahın ateş edilmesi yönetimi burada sağlanır. Ateş etme(Fire) işlemi burada gerçekleştirilir.<br>
 <b>WeaponRecoil.cs</b> => Bu metod ile silah her ateş edildiğinde bir recoil efekti sağlanması için kamerayı geri itiyoruz. TriggerRecoil metodu kamerayı geriye iterken, Update metodu ile her frame akıcı bir şekilde kamera olması gereken konuma yaklaşır.<br><br>
 
----<b>ENEMY SINIFLARI---<br>
+---<b>ENEMY SINIFLARI</b>---<br>
 Bu prototipinin amacı Character Controller olduğu için enemy implementasyonu çok temel ve basit tutulmuştur. <br>
 <b>EnemyHealth.cs</b> => Düşmanın health'ini tutan sınıftır. EnemyDeath metodu çağırılınca Ragdoll tetikleyerek ölüm hareketi sağlanır. Bullet çarpınca TakeDamage metodunu çağırarak enemy'nin canını azaltır.<br>
 <b>RagdollManager.cs</b> => isKinematic değeri güncelleyerek Ragdoll'un çalışmasını sağlar.<br><br>
